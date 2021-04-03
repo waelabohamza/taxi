@@ -35,10 +35,7 @@ class _AddTaxiState extends State<AddTaxi> {
   // var itemsize;
   bool loading;
 
-   
-
   List<dynamic> _datadropdown = List();
- 
 
   // Start Uploaded Images
 
@@ -94,8 +91,6 @@ class _AddTaxiState extends State<AddTaxi> {
     // assert(_catname != null) ;
     var formstate = formdata.currentState;
     if (formstate.validate()) {
-
-     
       formstate.save();
       if (file == null) {
         return showdialogall(context, "خطأ", "يجب اضافة صورة السيارة");
@@ -107,15 +102,14 @@ class _AddTaxiState extends State<AddTaxi> {
         return showdialogall(context, "خطأ", "يجب تحديد القسم");
       }
 
+      showLoading(context);
 
-      showLoading(context) ; 
-      
-      var responsebody = await crud.addTaxi(widget.email, taxiModel, taxiYear, taxiBrand,
-          taxiDescription, taxiPrice, file, file2);
-          print(responsebody) ; 
-       if (responsebody['status'] == "success"){
-          Navigator.of(context).pushReplacementNamed("success");
-       }
+      var responsebody = await crud.addTaxi(widget.email, taxiModel, taxiYear,
+          taxiBrand, taxiDescription, taxiPrice, file, file2);
+      print(responsebody);
+      if (responsebody['status'] == "success") {
+        Navigator.of(context).pushReplacementNamed("success");
+      }
     } else {
       print("Not Valid");
     }
@@ -124,7 +118,7 @@ class _AddTaxiState extends State<AddTaxi> {
   // Start DropDown Menu
 
   void getCatName() async {
-    var listData = await crud.readDataWhere("categories" , "1") ;
+    var listData = await crud.readDataWhere("categories", "1");
     for (int i = 0; i < listData.length; i++)
       setState(() {
         _datadropdown.add(listData[i]['cat_name']);
@@ -145,7 +139,6 @@ class _AddTaxiState extends State<AddTaxi> {
 
   @override
   Widget build(BuildContext context) {
-
     return Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
@@ -161,9 +154,6 @@ class _AddTaxiState extends State<AddTaxi> {
                     key: formdata,
                     child: Column(
                       children: <Widget>[
-                          
-                        
-
                         TextFormField(
                           onSaved: (val) {
                             taxiModel = val;
@@ -179,8 +169,6 @@ class _AddTaxiState extends State<AddTaxi> {
                             fillColor: Colors.white,
                           ),
                         ),
-         
-                        
                         TextFormField(
                           onSaved: (val) {
                             taxiYear = val;
@@ -207,36 +195,38 @@ class _AddTaxiState extends State<AddTaxi> {
                     ),
                   ),
                 ),
-                 
-                 Row(
-                   mainAxisAlignment:MainAxisAlignment.center ,
-                   children: [
 
-                      
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-                  child: RaisedButton(
-                    child: Text("صورة الرخصة",
-                        style: TextStyle(fontSize: 20, color: Colors.white)),
-                    color: file2 == null ?  Colors.red : Colors.green,
-                    onPressed: () {
-                      showbottommenu("licence");
-                    },
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                      child: RaisedButton(
+                        child: Text("صورة الرخصة",
+                            style:
+                                TextStyle(fontSize: 20, color: Colors.white)),
+                        color: file2 == null ? Colors.red : Colors.green,
+                        onPressed: () {
+                          showbottommenu("licence");
+                        },
+                      ),
+                    ),
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                      child: RaisedButton(
+                        child: Text("صورة السيارة",
+                            style:
+                                TextStyle(fontSize: 20, color: Colors.white)),
+                        color: file == null ? Colors.red : Colors.green,
+                        onPressed: () {
+                          showbottommenu("image");
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-                  child: RaisedButton(
-                    child: Text("صورة السيارة",
-                        style: TextStyle(fontSize: 20, color: Colors.white)),
-                    color:  file == null ?  Colors.red : Colors.green  ,
-                    onPressed: () {
-                      showbottommenu("image");
-                    },
-                  ),
-                ),
-
-                 ],) , 
                 // Container(
                 //     width: 200,
                 //     height: 200,
