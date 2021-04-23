@@ -42,9 +42,9 @@ class _AddTaxiState extends State<AddTaxi> {
   void _choosegallery(String type) async {
     final myfile = await ImagePicker().getImage(
         source: ImageSource.gallery,
-        imageQuality: 50,
-        maxHeight: 500.0,
-        maxWidth: 500.0);
+        imageQuality: 70,
+        maxHeight: 800.0,
+        maxWidth: 800.0);
     // For Show Image Direct in Page Current witout Reload Page
     if (type == "image") {
       if (myfile != null) {
@@ -66,8 +66,8 @@ class _AddTaxiState extends State<AddTaxi> {
     final myfile = await ImagePicker().getImage(
         source: ImageSource.camera,
         imageQuality: 70,
-        maxHeight: 700.0,
-        maxWidth: 700.0);
+        maxHeight: 800.0,
+        maxWidth: 800.0);
     // For Show Image Direct in Page Current witout Reload Page
     if (type == "image") {
       if (myfile != null) {

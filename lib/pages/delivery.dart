@@ -212,7 +212,7 @@ class _DeliveryState extends State<Delivery> {
                 var distance = await destanceBetweenDriving(
                     currentlat, currentlong, widget.destlat, widget.destlong);
                 print(distance);
-                if (distance > 50) {
+                if (distance > 500) {
                   showdialogall(context, "تنبيه", "لم تصل الى المكان المحدد") ; 
                 } else {
                   await doneDelivery();
